@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  siteName: MyString
+  windDirection: MyString
+  windPower: 1
+  temperature: MyString
+  weather: MyString
+  dataCreationDate: 2018-06-24
+
+two:
+  siteName: MyString
+  windDirection: MyString
+  windPower: 1
+  temperature: MyString
+  weather: MyString
+  dataCreationDate: 2018-06-24
