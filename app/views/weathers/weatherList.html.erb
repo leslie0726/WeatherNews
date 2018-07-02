@@ -1,7 +1,22 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Weathers</h1>
+<script>
+  function goAnotherPage(value){
+    window.location =value
+  }
+</script>
+<select onchange ="goAnotherPage(this.value)">
+  <% @select.each do |option| %>
+    <option value="<%= weathers_weatherList_path(option) %>"><%= option =%></option>
+  <% end %>
+</select>
+
 <%= line_chart  @data %>
+
+
+
+
 <table class="table">
   <thead>
     <tr>
