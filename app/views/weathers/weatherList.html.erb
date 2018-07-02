@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Weathers</h1>
-
-<table>
+<%= line_chart  @data %>
+<table class="table">
   <thead>
     <tr>
       <th>地區</th>
@@ -17,17 +17,15 @@
 
   <tbody>
     <% @weathers.each do |weather| %>
-      <tr>
-        <td><%= weather.siteName %></td>
-        <td><%= weather.windDirection %></td>
-        <td><%= weather.windPower %></td>
-        <td><%= weather.temperature %></td>
-        <td><%= weather.weather %></td>
-        <td><%= weather.dataCreationDate %></td>
-
-      </tr>
+        <tr>
+          <td><%= weather.siteName %></td>
+          <td><%= weather.windDirection %></td>
+          <td><%= weather.windPower %></td>
+          <td><%= weather.temperature %></td>
+          <td><%= weather.weather %></td>
+          <td><%= weather.dataCreationDate %></td>
+        </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
