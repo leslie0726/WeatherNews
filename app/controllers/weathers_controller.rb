@@ -2,8 +2,8 @@ require 'net/http'
 
 class WeathersController < ApplicationController
 
-  def weatherList(site="馬祖")
-    p site
+  def weatherList()
+    @site = params[:site];
     @select = []
     @siteData= []
     @weathers = []
@@ -12,7 +12,7 @@ class WeathersController < ApplicationController
     result = JSON.parse(resp)
     result.each do |data|
       @select << data["SiteName"] if !@select.include?(data["SiteName"]);
-      if data["SiteName"] == site
+      if data["SiteName"] == @site
         dataCreationDate = data["DataCreationDate"]
         weather = Weather.new
         dataCreationDateStr =data["DataCreationDate"].split("/")
@@ -29,7 +29,7 @@ class WeathersController < ApplicationController
         end
       end
     end
-    getChart(site)
+    getChart(@site)
   end
   
   def getChart(site)
@@ -37,7 +37,6 @@ class WeathersController < ApplicationController
     data = []
     @weathers.each do |weather|
       if weather.siteName == site
-        p weather.dataCreationDate.strftime("%F %T")
         labels.push(weather.dataCreationDate.strftime("%F %T"))
         data.push(weather.temperature.split("(")[0])
       end

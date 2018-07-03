@@ -6,41 +6,45 @@
     window.location =value
   }
 </script>
+您選擇的地區為<%= @site %>，請選擇您要的地區：
 <select onchange ="goAnotherPage(this.value)">
+  <option value="">請選擇</option>
   <% @select.each do |option| %>
     <option value="<%= weathers_weatherList_path(option) %>"><%= option =%></option>
   <% end %>
 </select>
 
-<%= line_chart  @data %>
+<% if @weathers.length>0 %>
+  <%= line_chart  @data %>
 
-
-
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>地區</th>
-      <th>風向</th>
-      <th>風級</th>
-      <th>溫度</th>
-      <th>天氣</th>
-      <th>更新日期</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @weathers.each do |weather| %>
-        <tr>
-          <td><%= weather.siteName %></td>
-          <td><%= weather.windDirection %></td>
-          <td><%= weather.windPower %></td>
-          <td><%= weather.temperature %></td>
-          <td><%= weather.weather %></td>
-          <td><%= weather.dataCreationDate %></td>
-        </tr>
-    <% end %>
-  </tbody>
-</table>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>地區</th>
+        <th>風向</th>
+        <th>風級</th>
+        <th>溫度</th>
+        <th>天氣</th>
+        <th>更新日期</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @weathers.each do |weather| %>
+          <tr>
+            <td><%= weather.siteName %></td>
+            <td><%= weather.windDirection %></td>
+            <td><%= weather.windPower %></td>
+            <td><%= weather.temperature %></td>
+            <td><%= weather.weather %></td>
+            <td><%= weather.dataCreationDate %></td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <br>
+  抱歉，查無此地區，請重新選擇!
+<% end %>
 <br>
