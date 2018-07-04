@@ -15,7 +15,7 @@
 </select>
 
 <% if @weathers.length>0 %>
-  <%= line_chart  @data %>
+  <%= line_chart  @data, @options%>
 
   <table class="table">
     <thead>

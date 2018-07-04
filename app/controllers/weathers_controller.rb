@@ -5,7 +5,7 @@ class WeathersController < ApplicationController
   def weatherList()
     @site = params[:site];
     @select = []
-    @siteData= []
+    @siteData = []
     @weathers = []
     uri = URI('https://opendata.epa.gov.tw/ws/Data/ATM00698/?$format=json')
     resp = Net::HTTP.get(uri)
@@ -32,17 +32,15 @@ class WeathersController < ApplicationController
     getChart(@site)
   end
   
+  
+  
   def getChart(site)
-    labels = []
-    data = []
-    @weathers.each do |weather|
-      if weather.siteName == site
-        labels.push(weather.dataCreationDate.strftime("%F %T"))
-        data.push(weather.temperature.split("(")[0])
-      end
-    end
+    chart_data = getChartData(site)
     
-    
+    chart_data = chart_data.sort.to_h
+    labels = chart_data.keys
+    data = chart_data.values
+
     @data = {
       labels: labels,
       datasets: [
@@ -51,8 +49,25 @@ class WeathersController < ApplicationController
             backgroundColor: "rgba(220,220,220,0.2)",
             borderColor: "rgba(220,220,220,1)",
             data: data
-        }
+        },
       ]
     }
+    @options = {height: 200}
+  end
+  
+  
+  
+  def getChartData(site)
+    chart_data = Hash.new(0)
+    
+    @weathers.each do |weather|
+      if weather.siteName == site
+        l = weather.dataCreationDate.strftime("%F %T")
+        d = weather.temperature.split("(")[0]
+        chart_data.store(l ,d)
+      end
+    end
+    
+    return chart_data
   end
 end
